@@ -233,7 +233,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                     />
                     <FormField
                       control={form.control}
-                      name="price"
+                      name="isFree"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
@@ -245,6 +245,8 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                                 Free Ticket
                               </label>
                               <Checkbox
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
                                 className="mr-2 h-5 w-5 border-2 border-primary-500"
                                 id="isFree"
                               />
