@@ -5,7 +5,7 @@ interface IEvent extends Document {
     _id: string;
     title: string;
     description?: string;
-    locations?: string;
+    location?: string;
     createdAt?: Date;
     imageUrl: string;
     startDateTime?: string;
@@ -19,7 +19,7 @@ interface IEvent extends Document {
 const EventSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String },
-  locations: { type: String },
+  location: { type: String },
   createdAt: { type: Date, default: Date.now },
   imageUrl: { type: String, required: true },
   startDateTime: { type: String, default: Date.now },
