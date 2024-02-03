@@ -45,6 +45,7 @@ export const Delete = ({ eventId }: { eventId: string }) => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
 
           <AlertDialogAction
+            className="bg-red-500 hover:bg-red-600"
             onClick={() =>
               startTransition(async () => {
                 await deleteEvent({ eventId, path: pathname });
