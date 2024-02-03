@@ -74,7 +74,7 @@ export const getAllEvents = async ({
     const events = await populateevent(eventQuery);
     const eventCount = await Event.countDocuments(condition);
     return {
-      events: JSON.parse(JSON.stringify(events)),
+      data: JSON.parse(JSON.stringify(events)),
       totalPages: Math.ceil(eventCount / limit),
     };
   } catch (error) {
