@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Delete } from "./Delete";
 
 type CardProps = {
   event: IEvent;
@@ -32,6 +33,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
               width={20}
             />
           </Link>
+          <Delete eventId={event._id} />
         </div>
       )}
 
