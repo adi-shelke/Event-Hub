@@ -1,3 +1,4 @@
+import CheckoutButton from "@/components/shared/CheckoutButton";
 import Collections from "@/components/shared/Collections";
 import {
   getEventDetails,
@@ -53,6 +54,7 @@ const EventDetails = async ({
               </div>
             </div>
             {/* Checkout Button */}
+        <CheckoutButton event={event}/>
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
                 <Image
@@ -97,8 +99,8 @@ const EventDetails = async ({
         <h2 className="h2-bold">Related Events</h2>
         <Collections
           data={relatedEvents?.data}
-          emptyTitle="No Events Found!"
-          emptyStateSubtext="Come back later"
+          emptyTitle="No Related Events Found!"
+          emptyStateSubtext="Explore other Events"
           collectionType="ALL_EVENTS"
           limit={7}
           page={2}
