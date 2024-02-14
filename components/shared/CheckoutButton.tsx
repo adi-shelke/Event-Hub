@@ -31,3 +31,4 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
 };
 
 export default CheckoutButton;
+
