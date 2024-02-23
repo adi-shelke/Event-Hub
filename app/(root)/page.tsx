@@ -1,3 +1,4 @@
+import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collections from "@/components/shared/Collections";
 import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
@@ -8,8 +9,8 @@ import Link from "next/link";
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
-  const searchText = searchParams?.query as string || "";
-  const category = searchParams?.category as string || "";  
+  const searchText = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
   const events = await getAllEvents({
     query: searchText,
     category,
@@ -48,9 +49,9 @@ export default async function Home({ searchParams }: SearchParamProps) {
         <h2 className="h2-bold">
           Trusted by <br /> Thousands of Events
         </h2>
-        <div className="flex w-full flex-col gap-5 md:flex-row">
+        <div className="flex w-full items-center flex-col gap-5 md:flex-row">
           <Search />
-          Category Filter
+          <CategoryFilter />
         </div>
 
         <Collections
