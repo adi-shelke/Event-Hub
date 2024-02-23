@@ -8,7 +8,7 @@ type CollectionProps = {
   emptyStateSubtext: string;
   collectionType?: "EVENTS_ORGANIZED" | "MY_TICKETS" | "ALL_EVENTS";
   limit: number;
-  page: number;
+  page: number | string;
   totalPages?: number;
   urlParamName?: string;
 };

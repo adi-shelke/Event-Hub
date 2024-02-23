@@ -54,7 +54,7 @@ const EventDetails = async ({
               </div>
             </div>
             {/* Checkout Button */}
-        <CheckoutButton event={event}/>
+            <CheckoutButton event={event} />
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
                 <Image
@@ -102,9 +102,9 @@ const EventDetails = async ({
           emptyTitle="No Related Events Found!"
           emptyStateSubtext="Explore other Events"
           collectionType="ALL_EVENTS"
-          limit={7}
-          page={2}
-          totalPages={7}
+          limit={3}
+          page={searchParams.page as string}
+          totalPages={relatedEvents?.totalPages}
         />
       </section>
     </>
