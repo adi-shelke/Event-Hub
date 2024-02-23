@@ -1,15 +1,22 @@
 import Collections from "@/components/shared/Collections";
 import { Button } from "@/components/ui/button";
 import { getEventsByUser } from "@/lib/actions/event.actions";
+import { getOrdersByUser } from "@/lib/actions/order.actions";
+import { IOrder } from "@/lib/database/models/order.model";
+import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
-const page = async () => {
+const page = async ({ searchParams }: SearchParamProps) => {
   const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
 
-  const organizedEvents = await getEventsByUser({ userId, page: 1 });
+  const ordersPage = Number(searchParams?.ordersPage) || 1;
+  const eventsPage = Number(searchParams?.eventsPage) || 1;
+  const userId = sessionClaims?.userId as string;
+  const orders = await getOrdersByUser({ userId, page: ordersPage });
+  const orderedEvents = orders?.data.map((order: IOrder) => order.event) || [];
+  const organizedEvents = await getEventsByUser({ userId, page: eventsPage });
 
   return (
     <>
@@ -21,18 +28,18 @@ const page = async () => {
           </Button>
         </div>
       </section>
-      {/* <section className="wrapper my-8">
+      <section className="wrapper my-8">
         <Collections
-          data={events?.data}
+          data={orderedEvents}
           emptyTitle="No Tickets Found!"
           emptyStateSubtext="Browse Events and get your tickets now!"
           collectionType="MY_TICKETS"
           limit={3}
-          page={1}
-          totalPages={2}
+          page={ordersPage}
+          totalPages={orders?.totalPages}
           urlParamName="ordersPage"
         />
-      </section> */}
+      </section>
 
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
         <div className="wrapper flex items-center justify-center sm:justify-between">
@@ -52,8 +59,8 @@ const page = async () => {
           emptyStateSubtext="Create an event now!"
           collectionType="EVENTS_ORGANIZED"
           limit={6}
-          page={1}
-          totalPages={2}
+          page={eventsPage}
+          totalPages={organizedEvents?.totalPages}
           urlParamName="eventsPage"
         />
       </section>
