@@ -19,32 +19,32 @@ import {
 import { ICategory } from "@/lib/database/models/category.model";
 import { startTransition, useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { createCategory, getAllCategories } from "@/lib/actions/category.actions";
+import {
+  createCategory,
+  getAllCategories,
+} from "@/lib/actions/category.actions";
 type DropDownProps = {
   value?: string;
   onChangeHandler?: () => void;
 };
 const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
   const [categories, setcategories] = useState<ICategory[]>([]);
-  const [newCategories, setnewCategories] = useState("")
+  const [newCategories, setnewCategories] = useState("");
 
-
-  const handleAddCategory =()=>{
-    createCategory({categoryName:newCategories}).then((category)=>{
-      setcategories((prevState)=>([...prevState,category]))
-    })
-  }
+  const handleAddCategory = () => {
+    createCategory({ categoryName: newCategories }).then((category) => {
+      setcategories((prevState) => [...prevState, category]);
+    });
+  };
 
   useEffect(() => {
     const getCategories = async () => {
       const categoryList = await getAllCategories();
       categoryList && setcategories(categoryList as ICategory[]);
+    };
+    getCategories();
+  }, []);
 
-    }
-    getCategories()
-  
-  }, [])
-  
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">
@@ -69,12 +69,27 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
             <AlertDialogHeader>
               <AlertDialogTitle>New Category</AlertDialogTitle>
               <AlertDialogDescription>
-                <Input type="text" placeholder="Category name" className="input-field mt-3" onChange={(e)=>setnewCategories(e.target.value)}/>
+                {/* <Input
+                  type="text"
+                  placeholder="Category name"
+                  className="input-field mt-3"
+                  onChange={(e) => setnewCategories(e.target.value)}
+                /> */}
+                <input
+                  type="text"
+                  placeholder="Category name"
+                  className="input-field mt-3 w-full"
+                  onChange={(e) => setnewCategories(e.target.value)}
+                />
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={()=>startTransition(handleAddCategory)}>Add</AlertDialogAction>
+              <AlertDialogAction
+                onClick={() => startTransition(handleAddCategory)}
+              >
+                Add
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
