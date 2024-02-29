@@ -5,17 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 import { ICategory } from "@/lib/database/models/category.model";
 import { startTransition, useEffect, useState } from "react";
 import { Input } from "../ui/input";
@@ -23,6 +13,7 @@ import {
   createCategory,
   getAllCategories,
 } from "@/lib/actions/category.actions";
+import { Button } from "../ui/button";
 type DropDownProps = {
   value?: string;
   onChangeHandler?: () => void;
@@ -30,6 +21,7 @@ type DropDownProps = {
 const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
   const [categories, setcategories] = useState<ICategory[]>([]);
   const [newCategories, setnewCategories] = useState("");
+  const [addCategory, setaddCategory] = useState("");
 
   const handleAddCategory = () => {
     createCategory({ categoryName: newCategories }).then((category) => {
@@ -50,7 +42,7 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
       <SelectTrigger className="select-field">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="py-3">
         {categories.length > 0 &&
           categories.map((category) => (
             <SelectItem
@@ -61,35 +53,29 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
               {category.name}
             </SelectItem>
           ))}
-        <AlertDialog>
-          <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-            Add new category
-          </AlertDialogTrigger>
-          <AlertDialogContent className="bg-white">
-            <AlertDialogHeader>
-              <AlertDialogTitle>New Category</AlertDialogTitle>
-              <AlertDialogDescription>
-                <Input
-                  type="text"
-                  placeholder="Category name"
-                  className="input-field mt-3"
-                  onChange={(e) => {
-                    e.stopPropagation();
-                    setnewCategories(e.target.value);
-                  }}
-                />
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => startTransition(handleAddCategory)}
+        <div className="w-full flex justify-center">
+          <div className="w-[100%] flex flex-col">
+            <Input
+              type="text"
+              placeholder="Category name"
+              className="input-field mt-3"
+              onChange={(e) => {
+                setnewCategories(e.target.value);
+              }}
+            />
+            <div className="cta flex justify-end">
+              <Button
+                className="mt-2"
+                onClick={async () => {
+                  setaddCategory("");
+                  startTransition(handleAddCategory);
+                }}
               >
                 Add
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+              </Button>
+            </div>
+          </div>
+        </div>
       </SelectContent>
     </Select>
   );
