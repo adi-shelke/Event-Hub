@@ -68,7 +68,7 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
           <AlertDialogContent className="bg-white">
             <AlertDialogHeader>
               <AlertDialogTitle>New Category</AlertDialogTitle>
-              <AlertDialogDescription>
+              {/* <AlertDialogDescription> */}
                 {/* <Input
                   type="text"
                   placeholder="Category name"
@@ -81,7 +81,7 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
                   className="input-field mt-3 w-full"
                   onChange={(e) => setnewCategories(e.target.value)}
                 />
-              </AlertDialogDescription>
+              {/* </AlertDialogDescription> */}
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
