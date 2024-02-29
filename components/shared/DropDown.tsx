@@ -68,20 +68,17 @@ const DropDown = ({ value, onChangeHandler }: DropDownProps) => {
           <AlertDialogContent className="bg-white">
             <AlertDialogHeader>
               <AlertDialogTitle>New Category</AlertDialogTitle>
-              {/* <AlertDialogDescription> */}
-                {/* <Input
+              <AlertDialogDescription>
+                <Input
                   type="text"
                   placeholder="Category name"
                   className="input-field mt-3"
-                  onChange={(e) => setnewCategories(e.target.value)}
-                /> */}
-                <input
-                  type="text"
-                  placeholder="Category name"
-                  className="input-field mt-3 w-full"
-                  onChange={(e) => setnewCategories(e.target.value)}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    setnewCategories(e.target.value);
+                  }}
                 />
-              {/* </AlertDialogDescription> */}
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
